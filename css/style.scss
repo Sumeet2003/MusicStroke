@@ -1,0 +1,392 @@
+// COLOR VARIABLES SECTION--------
+
+$black: #1e1e1e;
+$dark: #161616;
+$logo: #e1e1fc;
+$button-background-color: #065fd4;
+$button-text-color: #0a0a0a;
+$button-disabled-background: #606060;
+
+// Some functions------
+
+@mixin fullSize() {
+    width: 100%;
+}
+
+@mixin squareSize($size) {
+    width: $size;
+    height: $size;
+}
+
+@mixin flexCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// ! Start coding from here-----
+
+*,
+*:after,
+*:before {
+    box-sizing: border-box;
+    user-select: none;
+}
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: $dark;
+    transition: all 0.3s ease-in-out;
+}
+main {
+    width: 100%;
+}
+:root:before {
+    content: url('../img/punjabi.jpg')
+             url('../img/hindi.jpg')
+             url('../img/english.jpg');
+    /* partial fallback */
+    visibility: hidden;
+    position: absolute;
+    left: -999em;
+  }
+
+// * loading screen UI-------
+
+.loading-SECTION {
+    width: 100%;
+    height: 100vh;
+    // @include flexCenter();
+}
+#logo {
+    @include squareSize(60px);
+}
+#logo path,
+#logo line {
+    stroke-dasharray: 596.7px;
+    stroke-dashoffset: 596.7px;
+    animation: path 2s cubic-bezier(0.37, 0.17, 0.65, 1.3) forwards,
+        loading 0.75s cubic-bezier(0.37, 0.17, 0.65, 1.3) infinite 2.1s;
+}
+@keyframes path {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+@keyframes loading {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    50% {
+        stroke-dashoffset: -25px;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+@keyframes blow {
+    0% {
+        @include squareSize(60px);
+    }
+    100% {
+        @include squareSize(10em);
+        opacity: 0;
+    }
+}
+
+// * LANGUAGE-Selection UI-------
+
+.language-SECTION {
+    position: relative;
+    max-width: 1366px;
+    @include flexCenter();
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+.container {
+    width: 100%;
+    padding: 2rem 1rem;
+}
+.text-wrapper {
+    text-align: center;
+    line-height: 12px;
+    transform: translateY(20px);
+}
+.dad-text {
+    font-family: Quicksand;
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+}
+.son-text {
+    font-family: Quicksand;
+    color: #9492a2;
+    font-size: 16px;
+    line-height: 20px;
+}
+.lang-select {
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 8em;
+    width: 95%;
+    align-items: center;
+    justify-items: center;
+    grid-auto-rows: 260px;
+}
+.lang-select span {
+    position: relative;
+    height: 14em;
+    background: $dark;
+    border-radius: 10px;
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.5s ease-in-out;
+}
+.lang-type p {
+    color: #e4e2e2;
+    font-family: tondo;
+    font-size: 1.3rem;
+    z-index: 5;
+    transition: all 0.1s ease-in-out;
+}
+.lang-select span:nth-child(1) {
+    background: url("../img/english.jpg");
+    background-size: cover;
+}
+.lang-select span:nth-child(2) {
+    background: url("../img/punjabi.jpg");
+    background-size: cover;
+}
+.lang-select span:nth-child(3) {
+    background: url("../img/hindi.jpg");
+    background-size: cover;
+    background-position: 50% 30%;
+}
+.lang-type::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #2e2e2e;
+    opacity: 0.8;
+    transition: all 0.2s ease-in-out;
+}
+.bx-check, .bx-check-circle {
+    visibility: visible;
+    @include squareSize(40px);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: all 0.05s ease-in-out;
+}
+.bx-check-circle {
+    visibility: hidden;
+    @include squareSize(25px);
+    position: absolute;
+    left: 10%;
+}
+.lang-select span:hover::before {
+    background: rgb(0, 0, 0);
+    opacity: 0.5;
+}
+.lang-select span:hover > .type-text {
+    color: transparent;
+}
+.lang-type-clicked p {
+    color: transparent;
+}
+.lang-type-clicked img {
+    transform: translate(-50%, -50%) scale(1);
+}
+.lang-type-clicked::before {
+    background: rgb(0, 0, 0);
+    opacity: 0.55;
+}
+
+// * footer UI---------
+
+footer {
+    @include flexCenter();
+    width: 100%;
+    height: 72px;
+    background: $dark;
+    position: fixed;
+    bottom: 0;
+    font-family: roboto;
+    z-index: 1000;
+    letter-spacing: 0.007px;
+    display: flex !important;
+}
+footer #finish {
+    @include flexCenter();
+    position: relative;
+    color: white;
+    font-size: 0.847rem;
+    font-weight: 500;
+    width: 120px;
+    height: 37px;
+    border-radius: 2px;
+    white-space: nowrap;
+    cursor: pointer;
+    letter-spacing: inherit;
+    overflow: hidden;
+    z-index: 5;
+}
+footer span {
+    @include flexCenter();
+    position: relative;
+    background: $button-background-color;
+    font-size: 0.85rem;
+    border-radius: 2px;
+    font-weight: 500;
+    border: none;
+    width: 71px;
+    cursor: pointer;
+    height: 37px;
+    white-space: nowrap;
+    letter-spacing: inherit;
+    overflow: hidden;
+    z-index: 5;
+}
+footer span p {
+    color: $button-text-color;
+}
+.disabled {
+    background: $button-disabled-background;
+    pointer-events: none;
+}
+.footer-hidden {
+    display: none !important;
+}
+// * Ripple Effect Animation--------
+.circle {
+    width: 100px;
+    height: 100px;
+    background: rgba(46, 46, 46, 0.2);
+    position: absolute;
+    transform: scale(0);
+    border-radius: 50%;
+    z-index: -5;
+    animation: riple 0.35s ease-in;
+}
+@keyframes riple {
+    to {
+        transform: scale(2.5);
+        background: rgba(68, 68, 68, 0.8);
+        opacity: 0;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ? 'WIDTH' media queries--------
+
+@media screen and (max-width: 1290px) {
+    .text-wrapper {
+        transform: scale(0.95) translateY(30px);
+    }
+}
+@media screen and (max-width: 1195px) {
+    .lang-select {
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        justify-content: center;
+    }
+    .lang-select span:last-child {
+        grid-row: 2;
+        grid-column: 1/3;
+    }
+}
+@media screen and (max-width: 700px) {
+    .lang-select {
+        grid-template-columns: 1fr;
+        margin-top: 5em;
+        transform: scale(0.95);
+        grid-auto-rows: 140px;
+    }
+    .lang-select span {
+        height: 7em;
+    }
+    .lang-select span:nth-child(1) {
+        background: $dark;
+    }
+    .lang-select span:nth-child(2) {
+        background: $dark;
+    }
+    .lang-select span:nth-child(3) {
+        background: $dark;
+    }
+    .lang-select span::before {
+        display: none;
+    }
+    .lang-select span:last-child {
+        grid-row: 3;
+        grid-column: 1;
+    }
+    .text-wrapper {
+        transform: scale(0.9) translateY(30px);
+    }
+    .lang-select span p {
+        color: #7a7a8c;
+    }
+    .lang-select span:hover {
+        background: linear-gradient(to right, #ff8a00, #da1b60);
+    }
+    .lang-select span:hover > .type-text {
+        color: white;
+    }
+    .lang-type-clicked {
+        background: linear-gradient(to right, #ff8a00, #da1b60) !important;
+    }
+    .lang-type-clicked p {
+        color: white !important;
+    }
+    .bx-check {
+        visibility: hidden;
+    }
+    .bx-check-circle {
+        visibility: visible;
+    }
+}
+@media screen and (max-width: 500px) {
+    .lang-select {
+        grid-auto-rows: 110px;
+    }
+    .lang-select span {
+        height: 5em;
+    }
+    .lang-select span p {
+        font-size: 1.1rem;
+    }
+}
+@media screen and (max-width: 400px) {
+    .text-wrapper {
+        transform: scale(0.85) translateY(30px);
+    }
+    .container {
+        padding: 2rem 0rem;
+    }
+}
