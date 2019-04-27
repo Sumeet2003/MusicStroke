@@ -8,7 +8,7 @@ let selections = [];
 // ! Functions declarations ( "LOGO" )------
 const endLoad = () => {
 	$('.loading-SECTION').remove();
-	$('body').css({ "background-color" : "#1e1e1e" });
+	$('body').css({ "background-color" : "#1e1e1e", "overflow" : "auto" });
 	$('main').html(`
 			<section class="language-SECTION">
 			<div class="container">
@@ -80,7 +80,6 @@ const endLoad = () => {
 						}
 						else {}
 					}
-					console.log(selections);
 				}
 
 				// ? 'next' "BUTTON" Disabled/Enabled decider-----------
