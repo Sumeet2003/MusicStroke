@@ -473,6 +473,7 @@ footer .finished-btn {
   z-index: -5;
   -webkit-animation: ripple 0.35s ease-in;
           animation: ripple 0.35s ease-in;
+  cursor: unset;
 }
 
 @-webkit-keyframes ripple {

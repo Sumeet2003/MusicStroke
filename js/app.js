@@ -10,6 +10,10 @@ let aImg = document.getElementsByClassName('a-img');
 let selections = [];
 let artistSelected = [];
 
+if ( window.innerWidth < 1000 ) {
+	var child = $("footer").children();
+	$("footer").children().css({"cursor": "unset"});
+}
 
 // ! Functions declarations ( "LOGO" )------
 function endLoad() {
@@ -95,7 +99,7 @@ function endLoad() {
 
 		} );
 
-};
+}
 
 // ? Ripple Effects----------
 
@@ -180,50 +184,6 @@ const buildArtists = ( name ) => {
 	</div>`;
 };
 
-// ? adding artists to the dom process-------------------
-let artistDisplay = document.querySelector(".artist-display");
-let r = 0;
-let dom = [];
-
-// for ( let i = 0; i < artistName.length; i++ ) {
-// 	r++;
-// 	dom.push( buildArtists(artistName[i]) );
-// }
-// $('.artist-display').append(dom.join(''));
-// ? -----------------------------------------
-
-$('.artist-display').on( "click", (evt) => {
-	if ( evt.target.className == "artist" ) {
-		let kiddo = evt.target.firstElementChild;
-
-		let data = kiddo.getAttribute("data-text");
-
-		if ( kiddo.className == "a-img" ) {
-			artistSelected.push(data);
-			console.log(artistSelected);
-		}
-		else if( kiddo.className == "a-img artist-selected" ) {
-			let k = artistSelected.indexOf(`${data}`);
-			artistSelected.splice( k, 1 );
-			console.log(artistSelected);
-		}
-
-		// ? 'finished' "BUTTON" Disabled/Enabled decider-----------
-
-		if ( artistSelected.length !== 0 ) {
-			$('.finished-btn').removeClass('disabled');
-			$('.finished-btn').addClass('finished');
-		}
-		else {
-			$('.finished-btn').removeClass('finished');
-			$('.finished-btn').addClass('disabled');
-		}
-
-		kiddo.classList.toggle("artist-selected");
-	}
-	else {}
-} );
-
 
 
 window.onload = function() {
@@ -256,7 +216,7 @@ function loadArtists() {
 			for ( let i = r; i < data.length; i++ ) {
 				r++;
 				dom.push( buildArtists(data[i].name) );
-			};
+			}
 			$('.artist-display').append(dom.join(''));
 		}
 		else {
@@ -289,7 +249,7 @@ function loadArtists() {
 					console.log("%c RUNNING else", "color: green;", r, s, data.length);
 					for ( let i = r; i < data.length; i++ ) {
 						dom.push( buildArtists(data[i].name) );
-					};
+					}
 					$('.artist-display').append(dom.join(''));
 				}
 
@@ -297,6 +257,47 @@ function loadArtists() {
 			}, 200);
 		}
 
-	}
-};
+	};
+
+	// ? adding artists to the dom process-------------------
+
+	let artistDisplay = document.getElementsByClassName("artist-display");
+	let r = 0;
+	let dom = [];
+
+	// ? -----------------------------------------
+
+	$(".artist-display").on( "click", (evt) => {
+		if ( evt.target.className == "artist" ) {
+			let kiddo = evt.target.firstElementChild;
+
+			let data = kiddo.getAttribute("data-text");
+
+			if ( kiddo.className == "a-img" ) {
+				artistSelected.push(data);
+				console.log(artistSelected);
+			}
+			else if( kiddo.className == "a-img artist-selected" ) {
+				let k = artistSelected.indexOf(`${data}`);
+				artistSelected.splice( k, 1 );
+				console.log(artistSelected);
+			}
+
+			// ? 'finished' "BUTTON" Disabled/Enabled decider-----------
+
+			if ( artistSelected.length !== 0 ) {
+				$('.finished-btn').removeClass('disabled');
+				$('.finished-btn').addClass('finished');
+			}
+			else {
+				$('.finished-btn').removeClass('finished');
+				$('.finished-btn').addClass('disabled');
+			}
+
+			kiddo.classList.toggle("artist-selected");
+		}
+		else {}
+	} );
+
+}
 // ! ---------------
