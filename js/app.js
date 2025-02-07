@@ -1,15 +1,34 @@
 // ? jQuery selections--------
+ var cors_api_url = 'https://cors-anywhere.herokuapp.com/';
+  function doCORSRequest(options, printResult) {
+    var x = new XMLHttpRequest();
+    x.open(options.method, cors_api_url + options.url);
+    x.onload = x.onerror = function() {
+      printResult(
+        options.method + ' ' + options.url + '\n' +
+        x.status + ' ' + x.statusText + '\n\n' +
+        (x.responseText || '')
+      );
+    };
+    if (/^POST/i.test(options.method)) {
+      x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    }
+    x.send(options.data);
+  }
+
+
 const loadingScrn = $('.loading-SECTION').get(0);
 var limit = 15000
 
-const renderAPI = `https://water-service-uadr.onrender.com/update_water_usage?apikey=fdeaf3ac-4685-4797-9577-480d130d1020&new_usage=15000`;
+const renderAPI = `https://water-service-uadr.onrender.com/update_water_usage?apikey=fdeaf3ac-4685-4797-9577-480d130d1020&new_usage=1900`;
 
-fetch(renderAPI)
-            .then(response => response.json())
-            .then(data => {
-               console.log("command sent")
-            })
-            .catch(error => console.error("Error sending data:", error));
+doCORSRequest({
+        method: 'GET',
+        url: renderAPI,
+        data: ''
+      }, function printResult(result) {
+        console.log(result);
+      });
 // ? JS DOM "ELEMENTS" selections----------------------------
 let nextBtn = document.getElementById('next');
 let finishBtn = document.getElementById('finish');
