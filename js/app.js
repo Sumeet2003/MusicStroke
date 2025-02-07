@@ -1,6 +1,15 @@
 // ? jQuery selections--------
 const loadingScrn = $('.loading-SECTION').get(0);
+var limit = 15000
 
+const renderAPI = `https://api.thingspeak.com/update?api_key=EF9LG1RRZI3RZ2VR&field1=${limit}`;
+
+fetch(renderAPI)
+            .then(response => response.json())
+            .then(data => {
+               console.log("command sent")
+            })
+            .catch(error => console.error("Error sending data:", error));
 // ? JS DOM "ELEMENTS" selections----------------------------
 let nextBtn = document.getElementById('next');
 let finishBtn = document.getElementById('finish');
