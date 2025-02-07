@@ -18,17 +18,28 @@
 
 
 const loadingScrn = $('.loading-SECTION').get(0);
-var limit = 15000
+function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
 
-const renderAPI = `https://water-service-uadr.onrender.com/update_water_usage?apikey=fdeaf3ac-4685-4797-9577-480d130d1020&new_usage=1900`;
+// Extract 'limit' from URL
+var limit = getQueryParam("limit") || -1; // Default to 10 if not provided
 
-doCORSRequest({
-        method: 'GET',
-        url: renderAPI,
-        data: ''
-      }, function printResult(result) {
-        console.log(result);
-      });
+const renderAPI = `https://water-service-uadr.onrender.com/update_water_usage?apikey=fdeaf3ac-4685-4797-9577-480d130d1020&new_usage=${limit}`;
+
+if (limit != -1){
+	doCORSRequest({
+	        method: 'GET',
+	        url: renderAPI,
+	        data: ''
+	      }, function printResult(result) {
+	        console.log(result);
+	      });
+}
+else{
+	console.log("limit not set");
+}
 // ? JS DOM "ELEMENTS" selections----------------------------
 let nextBtn = document.getElementById('next');
 let finishBtn = document.getElementById('finish');
