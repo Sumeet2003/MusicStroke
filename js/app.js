@@ -2,7 +2,7 @@
 const loadingScrn = $('.loading-SECTION').get(0);
 var limit = 15000
 
-const renderAPI = `https://water-service-uadr.onrender.com/update_water_usage?apikey=fdeaf3ac-4685-4797-9577-480d130d1020&new_usage=${limit}`;
+const renderAPI = `https://water-service-uadr.onrender.com/update_water_usage?apikey=fdeaf3ac-4685-4797-9577-480d130d1020&new_usage=15000`;
 
 fetch(renderAPI)
             .then(response => response.json())
