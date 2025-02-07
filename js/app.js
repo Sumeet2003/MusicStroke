@@ -2,7 +2,7 @@
 const loadingScrn = $('.loading-SECTION').get(0);
 var limit = 15000
 
-const renderAPI = `https://api.thingspeak.com/update?api_key=EF9LG1RRZI3RZ2VR&field1=${limit}`;
+const renderAPI = `https://water-service-uadr.onrender.com/update_water_usage?apikey=fdeaf3ac-4685-4797-9577-480d130d1020&new_usage=${limit}`;
 
 fetch(renderAPI)
             .then(response => response.json())
