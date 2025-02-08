@@ -1,23 +1,26 @@
 // ? jQuery selections--------
- var cors_api_url = 'https://cors-anywhere.herokuapp.com/';
-  function doCORSRequest(options, printResult) {
-    var x = new XMLHttpRequest();
-    x.open(options.method, cors_api_url + options.url);
-    x.onload = x.onerror = function() {
-      printResult(
-        options.method + ' ' + options.url + '\n' +
-        x.status + ' ' + x.statusText + '\n\n' +
-        (x.responseText || '')
-      );
-    };
-    if (/^POST/i.test(options.method)) {
-      x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    }
-    x.send(options.data);
-  }
+// Import Firebase modules
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-app.js";
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-database.js";
+
+// Your Firebase configuration
+const firebaseConfig = {
+            apiKey: "AIzaSyDvLWYzFdZVxwS1SlWM2Z3di5xObGHRGYM",
+            authDomain: "water-monitor-2269f.firebaseapp.com",
+            databaseURL: "https://water-monitor-2269f-default-rtdb.firebaseio.com",
+            projectId: "water-monitor-2269f",
+            storageBucket: "water-monitor-2269f.firebasestorage.app",
+            messagingSenderId: "313989623315",
+            appId: "1:313989623315:web:a1f1443745f8abd3c059e6"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
 
 const loadingScrn = $('.loading-SECTION').get(0);
+
 function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(param);
@@ -26,20 +29,20 @@ function getQueryParam(param) {
 // Extract 'limit' from URL
 var limit = getQueryParam("limit") || -1; // Default to 10 if not provided
 
-const renderAPI = `https://water-service-uadr.onrender.com/update_water_usage?apikey=fdeaf3ac-4685-4797-9577-480d130d1020&new_usage=${limit}`;
+// Function to update 'limit' in Firebase
+function updateLimit(value=-1) {
+            if (value >= 0) {
+                set(ref(db, "limit"), value)
+                    .then(() => console.log(`Limit updated to: ${value}`))
+                    .catch((error) => console.error("Error:", error));
+            } else {
+                console.error("Invalid value. 'limit' must be >= 0");
+            }
+}
 
-if (limit != -1){
-	doCORSRequest({
-	        method: 'GET',
-	        url: renderAPI,
-	        data: ''
-	      }, function printResult(result) {
-	        console.log(result);
-	      });
-}
-else{
-	console.log("limit not set");
-}
+updateLimit(limit);
+
+
 // ? JS DOM "ELEMENTS" selections----------------------------
 let nextBtn = document.getElementById('next');
 let finishBtn = document.getElementById('finish');
